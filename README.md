@@ -216,6 +216,191 @@ Content-Type: application/json
 }
 ```
 
+
+署
+```bash
+# 使用Docker Compose
+docker-compose up -d
+
+# 或使用部署脚本
+chmod +x deploy.sh
+sudo ./deploy.sh production docker
+```
+
+### 3. 传统部署
+```bash
+# 使用PM2
+sudo ./deploy.sh production pm2
+
+# 或独立部署
+sudo ./deploy.sh production standalone
+```
+
+## 📂 项目结构
+
+```
+online-tools/
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx          # 头部组件
+│   │   ├── Sidebar.jsx         # 侧边栏
+│   │   ├── ToolCard.jsx        # 工具卡片
+│   │   ├── ToolModal.jsx       # 工具模态框
+│   │   ├── ToolRenderer.jsx    # 工具渲染器
+│   │   └── tools/              # 具体工具组件
+│   │       ├── JsonFormatter.jsx
+│   │       ├── JsBeautify.jsx
+│   │       ├── Base64Encode.jsx
+│   │       ├── Md5Hash.jsx
+│   │       ├── QrGenerator.jsx
+│   │       └── index.js        # 其他工具占位
+│   ├── data/
+│   │   └── tools.js            # 工具配置数据
+│   ├── App.jsx                 # 主应用组件
+│   ├── main.js                 # 入口文件
+│   └── index.css               # 全局样式
+├── public/                     # 静态资源
+├── server.js                   # 后端服务器
+├── package.json                # 项目配置
+├── vite.config.js              # Vite配置
+├── tailwind.config.js          # Tailwind配置
+├── Dockerfile                  # Docker配置
+├── docker-compose.yml          # Docker Compose
+├── deploy.sh                   # 部署脚本
+├── .github/workflows/          # GitHub Actions
+└── README.md                   # 项目文档
+```
+
+## 🔧 扩展指南
+
+### 添加新工具
+1. 在 `src/components/tools/` 创建新组件
+2. 在 `src/data/tools.js` 添加工具配置
+3. 在 `ToolRenderer.jsx` 中注册组件
+4. 必要时在 `server.js` 添加API接口
+
+### 示例：添加URL编码工具
+```javascript
+// src/components/tools/UrlEncode.jsx
+import React, { useState } from 'react'
+
+const UrlEncode = () => {
+  const [input, setInput] = useState('')
+  const [output, setOutput] = useState('')
+  const [mode, setMode] = useState('encode')
+
+  const processUrl = () => {
+    if (mode === 'encode') {
+      setOutput(encodeURIComponent(input))
+    } else {
+      setOutput(decodeURIComponent(input))
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* 工具界面实现 */}
+    </div>
+  )
+}
+
+export default UrlEncode
+```
+
+## 🎨 界面截图
+
+### 主页面
+- 现代化卡片布局
+- 工具分类导航
+- 实时搜索功能
+
+### 工具页面  
+- 模态框设计
+- 双栏输入输出
+- 实时处理预览
+
+## 📊 性能优化
+
+### 前端优化
+- Vite构建优化
+- 代码分割和懒加载
+- Tailwind CSS PurgeCSS
+- 静态资源压缩
+
+### 后端优化
+- 压缩中间件
+- 安全头配置
+- 文件上传限制
+- API响应缓存
+
+### 部署优化
+- Nginx反向代理
+- HTTP/2支持
+- Gzip压缩
+- 静态资源缓存
+
+## 🧪 测试和监控
+
+### 测试覆盖
+- 单元测试框架
+- 组件测试
+- API接口测试
+- E2E测试
+
+### 监控指标
+- Lighthouse性能评分
+- 服务器健康检查
+- 错误日志收集
+- 用户访问统计
+
+## 🔄 持续集成
+
+### GitHub Actions流程
+1. 代码检查和测试
+2. 构建项目
+3. Docker镜像构建
+4. 自动部署到服务器
+5. 健康检查和回滚
+
+### 质量保证
+- ESLint代码规范
+- Prettier代码格式化
+- Husky Git钩子
+- 提交信息规范
+
+## 🛡️ 安全考虑
+
+### 输入验证
+- 文件类型检查
+- 文件大小限制
+- 内容安全过滤
+- SQL注入防护
+
+### 访问控制
+- CORS配置
+- 请求频率限制
+- IP白名单
+- API密钥认证
+
+## 📈 扩展计划
+
+### 短期目标
+- [ ] 完善所有基础工具
+- [ ] 添加用户偏好设置
+- [ ] 实现工具使用统计
+- [ ] 优化移动端体验
+
+### 长期规划
+- [ ] 用户账户系统
+- [ ] 工具收藏功能
+- [ ] 批量处理支持
+- [ ] API接口开放
+- [ ] 插件系统
+
+
+你可以直接将这些文件保存到本地，然后按照README中的说明进行部署。项目支持多种部署方式，可以适应不同的服务器环境。
+
+
 ## 🎨 界面预览
 
 ### 主页面
